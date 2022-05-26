@@ -1,0 +1,119 @@
+
+/*SECTIONS*/
+
+.uagb-section__wrap .uagb-section__overlay {
+	border-radius: 50px;
+}
+
+
+
+/*BLUETE DES MONATS SECTION*/
+#bluete-des-monats {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	justify-content: center;
+	background: url(https://sanaleo.com/wp-content/uploads/2020/12/Pineapple-Express-CBD-Blueten-Aromablueten-Sanaleo-CBD.jpg);
+	background-size: 308px;
+	background-position-x: -10%;
+	min-height: 60vh;
+	padding: 1%;
+	margin-bottom: 10%;
+	margin-top: 10%;
+	overflow: hidden;
+	background-repeat: repeat-x;
+	background-position-y: center;
+
+  
+    #outer-circle {
+      width: 500px;
+      height: 500px; }
+  
+      #circle-shadow {
+      width: 500px;
+      height: 500px; 
+  }
+  
+  .circle-background {
+      width: 442.5px;
+      height: 442.5px; }
+  
+    #inner-circle {
+      width: 442.5px;
+      height: 442.5px; 
+      transform: rotate(-70deg);
+    }
+
+    span {
+      font-weight: 600;
+    }
+  
+    .h2_span {
+    font-size: 1.8em;
+    font-weight: 900;
+  }
+
+  a{
+    display: inline-block;
+    background: white;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 50px; 
+    color: green;
+    font-weight: 600;
+    text-decoration: none;;
+  }
+    
+  }
+  
+  
+  #bluete-des-monats > div:nth-child(1) {
+    flex-basis: 50%;
+  }
+  
+  
+  #bluete-des-monats > div:nth-child(2) {
+    flex-basis: 50%;
+  }
+
+
+  @media screen and (max-width: 575.5px) {
+    #bluete-des-monats {
+    #outer-circle {
+      width: 300px !important;
+      height: 300px !important;
+    }
+  
+    #circle-shadow {
+      width: 300px !important;
+      height: 300px !important; 
+    }
+  
+    .circle-background {
+      width: 264.5px !important;
+      height: 264.5px !important; }
+  
+    #inner-circle {
+      width: 262.5px !important;
+      height: 262.5px !important; 
+      transform: rotate(-70deg);
+    }
+
+    .circle-content {
+      top: 28%;
+      font-size: 1em;
+    }
+
+    span {
+      font-weight: 600;
+    }
+  
+    .h2_span {
+      font-size: 1.2em;
+      font-weight: 900;
+    }
+
+  }
+  }
+
+  

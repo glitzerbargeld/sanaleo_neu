@@ -1,0 +1,167 @@
+
+
+/*
+INDEX
+
+1. HEADER Section
+2. Single-Product Page
+    2.1 Öle
+    2.2 Aromablüten
+    2.3 Lebensmittel
+    2.4 Kosmetik
+    2.5 Vape
+
+3. Product-Catalogue
+    3.1 Gallery
+    3.2 Single-Item
+        3.2.1 Oils
+        3.2.2 Aromablüten
+        3.2.3 Lebensmittel
+        3.2.4 Kosmetik
+        3.2.5 VAPE
+
+*/
+
+
+/*
+HEADER SECTION
+*/
+
+
+
+#lionhead{
+    transition: all 2s;
+    position: relative;
+}
+
+#product-menu-btn{
+	background-color: black;
+	border-radius: 15px;
+    cursor: pointer;
+
+}
+
+.p_open{
+    transform: translateY(150px);
+}
+
+
+.header-widget-area[data-section="sidebar-widgets-header-widget-1"] {
+    color: white;
+    display: block;
+    background-color: black;
+    height: auto;
+    width: 300px;
+    padding: 2em;
+    padding-left: 6em;
+    position: absolute;
+    top: 132px;
+    border-radius: 0px 0px 10px 0px;
+    display: none;
+    transition: display 2s;
+}
+
+.header-widget-area[data-section="sidebar-widgets-header-widget-1"] a{
+    font-size: 1.2em;
+    color: white;
+    font-weight: 900;
+} 
+
+
+/*Menu Button*/ 
+
+
+.menu-btn{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 50px;
+    cursor: pointer;
+    transition: all .5s;
+    margin-bottom: 5px;
+}
+
+.menu-btn__burger{
+    
+    width: 37px;
+    height: 6px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(255,101,47,.2);
+    background: black;
+    transition: all .5s;
+}
+
+.menu-btn__burger::before, .menu-btn__burger::after{
+    content: '';
+    position: absolute;
+    width: 37px;
+    height: 6px;
+    border-radius: 50%;
+    background: black;
+    box-shadow: 0 2px 5px rgba(255,101,47,.2);
+    transition: all 1.5s;
+
+}
+
+.menu-btn__burger::before{
+    transform: translateY(-10px);
+    
+       
+}
+.menu-btn__burger::after{
+    transform: translateY(10px);
+  
+}
+
+/*Menu Button ANIMATION*/
+
+
+
+ .menu-btn.open .menu-btn__burger{
+    transform: rotate(90deg);     
+     height: 8px;
+ }
+
+ .menu-btn.open .menu-btn__burger::before{
+     transform: rotate(45deg) translate(1px, -19px);
+     width: 30px;
+     height: 8px;
+ }
+ .menu-btn.open .menu-btn__burger::after{
+    transform: rotate(-45deg) translate(1px, 19px);
+    width: 30px;
+    height: 8px;
+}
+
+
+/*Product Page*/
+
+
+/*Page Header*/
+
+.ast-merged-advanced-header.ast-title-bar-wrap.ast-advanced-headers-parallax.ast-advanced-headers-vertical-center {
+    background-position: center -122.5px;
+    margin-bottom: 2%;
+}
+
+/*Product Details*/
+
+
+/*Product Image*/
+
+.woocommerce-product-gallery.woocommerce-product-gallery--with-images.woocommerce-product-gallery--columns-4.images {
+    opacity: 1;
+    transition: opacity 0.25s ease-in-out;
+    position: absolute;
+    right: -2%;
+    top: -100%;
+}
+
+
+.woocommerce-product-gallery.woocommerce-product-gallery--with-images.woocommerce-product-gallery--columns-4.images img{
+    width: 300px;
+} 

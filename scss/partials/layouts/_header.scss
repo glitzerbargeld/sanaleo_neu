@@ -1,0 +1,35 @@
+@media screen and (min-width: 767.5px) {
+    .main-header-menu .menu-link, .main-header-menu > a {
+        font-size: 18px;
+        letter-spacing: 1.7px;
+    }
+}
+
+.ast-mobile-header-content {
+        padding-left: 10%;
+        padding-top: 10%;
+        padding-right: 5%;
+}
+
+.site-header .menu-text {
+	letter-spacing: 2px;
+}
+
+/*Account Symbol*/
+
+.ast-header-account-wrap {
+	display: flex;
+	height: 37px;
+}
+
+
+/*NAV MENU*/
+
+.menu-icon-cat {
+    margin: 0 10px 10px 0;
+}
+
+.ast-header-break-point .main-navigation ul .menu-item .menu-link .icon-arrow:first-of-type svg {
+    display: none;
+   }
+   

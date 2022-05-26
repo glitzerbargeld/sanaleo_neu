@@ -1,0 +1,10 @@
+$theme-colors: (
+  vape-bg-color: #f3f4db,
+  blueten-bg-color: #ebfbe5,
+  oele-bg-color: #fdebe0,
+  lebensmittel-bg-color: #f4ebff
+);
+
+@function theme-color($key) {
+  @return map-get($theme-colors, $key);
+}

@@ -1,0 +1,77 @@
+/*BORDER BOX LAYOUTS*/
+.margin {
+	&-0 {
+		margin: 0 !important;
+	}
+	&-10 {
+		margin: 10% !important;
+	}
+}
+
+.padding {
+
+	&-top-0 {
+		padding-top: 0;
+	}
+
+	&-bottom-0 {
+		padding-bottom: 0;
+	}
+
+	&-0 {
+		padding: 0 !important;
+	}
+}
+
+/*DYNAMIC LAYOUTS*/
+
+.sticky-col {
+
+	&-t-0 {
+		position: sticky !important;	
+		top: 0;
+		padding-top: 20px;
+	}
+
+	&-t-10 {
+		position: sticky !important;	
+		top: 10%;
+	}
+
+	&-t-20 {
+		position: sticky !important;	
+		top: 20%;
+	}
+}
+
+/*FLEX LAYOUTS*/
+.flex-center {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 1em;
+}
+
+.flex-col-center {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+}
+
+.flex-col-start {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.translate-down-30 {
+	transform: translate(0, 30px);
+}
+
+
+/*TEXT LAYOUTS*/
+.text-align-left {
+	h1, h2, h3, h4, h5, p, span {
+		text-align:left !important;
+	}
+}

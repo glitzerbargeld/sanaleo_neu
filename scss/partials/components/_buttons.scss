@@ -1,0 +1,62 @@
+/*FRONTPAGE - BUTTONS PRODUCT-CATEGORIES*/
+.prod-btn {
+  width: 75%;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 0.95);
+  color: black;
+  padding: 10px;
+  border: none;
+  border-radius: 30px a {
+    font-size: 16px !important;
+    text-decoration: none !important;
+  }
+}
+
+#wpforms-submit-72924 {
+  background: white;
+  color: black;
+  border: 1px solid black;
+  border-radius: 30px;
+
+  &:hover {
+    background: black;
+    color: white;
+  }
+}
+
+.wp-block-button__link {
+  cursor: pointer !important;
+}
+.wp-block-button .wp-block-button__link:hover,
+.wp-block-button .wp-block-button__link:focus {
+  cursor: pointer !important;
+  color: #ffffff;
+  background-color: black !important;
+  border-color: #ffffff;
+  color: white !important;
+}
+
+@media (min-width: 556px) {
+  #ast-scroll-top	.ast-icon.icon-arrow {
+      position: absolute;
+      left: 7px;
+      top: -2px;
+    }
+  }
+
+@media (min-width: 922px) {
+#ast-scroll-top	.ast-icon.icon-arrow {
+    position: absolute;
+		left: 8px;
+		top: -2px;
+	}
+}
+
+
+@media (max-width: 555.5px) {
+#ast-scroll-top	.ast-icon.icon-arrow {
+    position: absolute;
+		left: 7px;
+		top: -13px;
+	}
+}

@@ -1,0 +1,212 @@
+footer {
+  display: grid;
+  grid-gap: 30px;
+  margin: auto;
+  margin: 5% auto;
+
+
+  .bd-top-1 {
+    border-top: 1px solid;
+    padding-top: 20px;
+  }
+
+  .flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5%;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  #menu-new-footer {
+    margin: 0;
+  }
+
+  .sub-menu {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0 !important;
+    margin: 0;
+
+  }
+
+  .menu-link {
+    text-transform: none;
+  }
+
+  .menu-item-has-children {
+    margin: 10px;
+    font-weight: 600;
+  }
+
+  .sub-menu {
+    font-weight: 300;
+  }
+
+  #ft-about {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: justify;
+    font-size: 16px;
+
+    img {
+      margin-bottom: 20px;
+      max-width: 120px;
+    }
+  }
+}
+
+
+
+.menu-new-footer-container {
+    padding-top: 10px;
+    border-top: 1px solid;
+    grid-area: ftmenu;
+}
+
+#menu-new-footer {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+#ft-about {
+  padding-top: 10%;
+  grid-area: ftabout;
+}
+
+#ft-newsletter {
+  grid-area: ftnewsletter;
+}
+
+#ft-services {
+  text-align: center;
+  grid-area: services;
+  display: inline-block;
+  padding-top: 2%;
+
+  img {
+      max-height: 25px;
+      margin: 5px;
+      width: auto;
+  }
+}
+
+#ft-partners {
+  display: inline-block;
+  text-align: center;
+  grid-area: partners;
+
+  .partner-logo {
+    max-height: 60px;
+    margin: 3%;
+    width: auto;
+  }
+}
+
+#ft-legal {
+  font-size: 12px;
+  text-align: justify;
+  text-align-last: center;
+  grid-area: legal;
+}
+
+
+/*MEDIA QUERIES*/
+
+@media (max-width: 767.5px) {
+  footer {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "ftnewsletter ftnewsletter" "ftabout ftabout" "ftmenu ftmenu" "services services" "partners partners" "legal legal";
+
+    h3 {
+        text-align: left;
+    }
+  }
+
+  #menu-new-footer {
+    justify-content: flex-start;
+  }
+
+  footer .menu-item-has-children {
+    border-bottom: 1px solid;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  #menu-item-73285 {
+    border-bottom: 0;
+  }
+
+  #ft-services {
+      text-align: center;
+  }
+
+  #ft-partners {
+
+    text-align: center;
+    .partner-logo {
+    max-width: 20%;
+    }
+  }
+  
+}
+
+@media (min-width: 768px) {
+
+  footer {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "ftabout ftnewsletter"
+      "ftmenu ftmenu"
+      "partners partners"
+      "services services"
+      "legal legal";
+
+    .menu-item-has-children {
+      margin: 10px;
+      font-weight: 600;
+      flex: 1;
+    }
+  }
+
+  #ft-partners{
+  .partner-logo {
+    max-width: 10%;
+  }
+}
+
+  }
+
+  @media (min-width: 1200px) {
+    footer {
+      grid-template-columns: 1fr 4fr 1fr;
+      grid-template-areas:
+        "ftabout ftmenu ftnewsletter"
+        "partners partners services"
+        "legal legal legal";
+  
+      .menu-item-has-children {
+        margin: 10px;
+        font-weight: 600;
+        flex: 1;
+      }
+
+      #ft-partners{
+        text-align: left;
+      }
+
+      #ft-services {
+        text-align: left;
+      }
+    }
+
+  #menu-new-footer {
+      justify-content: space-around;
+  }
+}

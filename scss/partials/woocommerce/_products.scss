@@ -1,0 +1,344 @@
+/*PRODUCT PAGE - GENERAL*/
+
+.t-product-info-short {
+  padding: 20px;
+  background: white; 
+
+  @media (min-width: 1200px) {
+    text-align: left;
+  }
+
+  h1 {
+    font-size: 2em;
+    font-weight: 900;
+    text-align: center;
+  }
+
+  h3 {
+    text-transform: none;
+  }
+
+  ul {
+    @media (max-width: 996px) {
+      margin-left: 25px !important;
+    }
+  }
+}
+
+.lebensmittel {
+  .t-product-info-short {
+    background: #f6eaff !important;
+  }
+}
+
+.cbd-vape {
+  .t-product-info-short {
+    background: #E1F0EC;
+  }
+}
+
+.cbd-kosmetik {
+  .ProductAttributes {
+    display: inline-flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin: 20px auto;
+    width: 100%;
+    gap: 10%;
+  }
+}
+
+.cbd-blueten {
+  .flex-col-center, .flex-col-start {
+    background: #ecfbe8;
+  }
+}
+
+.az-link-container {
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(2, 50%);
+	justify-content: center;
+}
+
+.az-link {
+    font-size: calc(min(4vw, 16px));
+    display: inline-flex;
+    align-items: center;
+    background: white;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 11px;
+    margin: 5px;
+
+    &:hover {
+      border-radius: 0;
+    }
+}
+
+/*Product Details*/
+
+
+/*Product Gallery*/
+.attachment-woocommerce_thumbnail.size-woocommerce_thumbnail {
+  width: 31.5%;
+  margin: auto;
+}
+
+/*Product-Image*/
+.woocommerce-product-gallery.woocommerce-product-gallery--with-images.woocommerce-product-gallery--columns-4.images {
+  opacity: 1;
+  transition: opacity 0.25s ease-in-out;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*Add to Cart Quantity Section*/
+
+.woocommerce .product .cart .quantity.buttons_added {
+  font-weight: 900;
+}
+
+.woocommerce form .quantity .minus, .woocommerce form .quantity .plus {
+
+	background-color: white !important;
+
+}
+
+
+/*ONSALE*/
+
+.image-wrap {
+  @media (min-width: 768px) {
+    text-align: center;
+    margin-top: -25%;
+  }
+}
+
+/*CART*/
+
+.woocommerce div.product form.cart .button.single_add_to_cart_button {
+  padding-top: 10px;
+  margin-left: 0;
+  border-radius: 0;
+  padding-left: 5px;
+  padding-bottom: 10px;
+  padding-right: 5px;
+  height: 65px;
+}
+
+.woocommerce div.product form.cart {
+  margin-top: 1.2em;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/*CUSTOM TABS*/
+
+.woocommerce-tabs {
+  padding-top: 5%;
+  border-top: 1px solid black;
+}
+
+.woocommerce div.product .woocommerce-tabs .panel {
+  max-width: 1100px;
+  padding: 20px;
+  margin: auto;
+}
+
+
+#reviews {
+  
+  flex-wrap: wrap;
+
+  @media(min-width: 768px){
+    padding: 20px;
+  }
+
+  #comments {
+    flex-basis: 50%;
+
+    @media(max-width: 892px) {
+      flex-basis: 100%;
+      width: 100%;
+    }
+  }
+  #review_form_wrapper {
+    flex-basis: 50%;
+    @media(max-width: 892px) {
+      flex-basis: 100%;
+      width: 100%;
+    }
+  }
+
+  .woocommerce-Reviews-title {
+    display: block;
+    margin-bottom: 20px;
+    font-weight: 600 !important;
+    font-size: 1.2em !important;
+  }
+}
+
+/*
+.woocommerce-Tabs-panel {
+  text-align: justify;
+  text-align-last: center;
+
+  ol,
+  ul {
+    width: 80%;
+    margin: 0 auto 10% auto;
+    text-align-last: left;
+  }
+
+  .woocommerce div.product .woocommerce-tabs .panel {
+    max-width: 992px;
+    margin: 5% auto;
+    padding: 20px;
+  }
+
+  li {
+    margin: 10px auto;
+  }
+}
+
+*/
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li a {
+  border: 1px solid white;
+  border-radius: 30px;
+
+  &:hover {
+    border: 1px solid black;
+  }
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li.active {
+  border-radius: 30px;
+  background: black !important;
+  color: white !important;
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li.active::before {
+  display: none;
+}
+
+.woocommerce #content div.product .woocommerce-tabs ul.tabs li,
+.woocommerce-page #content div.product .woocommerce-tabs ul.tabs li {
+  border-radius: 30px;
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li a {
+  padding: 0.6em;
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs {
+  border-top: none;
+}
+
+/*PRODUCT ARCHIVE*/
+
+.woocommerce-products-header .h1_span {
+  font-size: calc(max(5.5vw, 1em));
+  margin-bottom: 0.5em;
+  margin-top: 0.3em;
+  font-weight: 100;
+  letter-spacing: 15px;
+  text-transform: uppercase;
+}
+
+/*ÖLE*/
+
+@media (max-width: 767px) {
+  .cbd_oele {
+    .woocommerce #content .ast-woocommerce-container div.product div.images,
+    .woocommerce .ast-woocommerce-container div.product div.images,
+    .woocommerce-page
+      #content
+      .ast-woocommerce-container
+      div.product
+      div.images,
+    .woocommerce-page .ast-woocommerce-container div.product div.images {
+      width: 100%;
+      margin-top: -220px;
+      margin-bottom: 0;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .woocommerce #content .ast-woocommerce-container div.product div.images,
+  .woocommerce .ast-woocommerce-container div.product div.images,
+  .woocommerce-page #content .ast-woocommerce-container div.product div.images,
+  .woocommerce-page .ast-woocommerce-container div.product div.images {
+    width: 100%;
+    margin: auto;
+  }
+}
+
+.woocommerce-variation-add-to-cart {
+  width: 90%;
+  margin-bottom: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*Kosmetik*/
+
+.cbd-kosmetik {
+  .woocommerce-product-details__short-description {
+    text-align: center;
+  }
+  .ast-row {
+    @media (max-width: 991.5px) {
+      margin-top: -250px;
+    }
+    @media (max-width: 1199.5px) {
+      max-width: 600px;
+      margin: -30vh auto 10% auto;
+    }
+  }
+  .images {
+    margin-bottom: 0 !important;
+  }
+
+  .woocommerce-product-details__short-description {
+    padding-top: 0 !important;
+  }
+
+  .product_title {
+    margin: 0 !important;
+  }
+}
+
+/*CBD-Blüten*/
+
+.cbd-blueten {
+  .woocommerce-product-gallery {
+    opacity: 1;
+    transition: opacity 0.25s ease-in-out 0s;
+    background: white;
+    border-radius: 50px;
+    margin-bottom: 2em !important;
+  }
+  .flex-viewport {
+    overflow: hidden;
+    position: relative;
+    height: 530.6px;
+    border-radius: 50px 50px 0 0;
+  }
+}
+
+/*MERRY BUD-MAS*/
+
+.woocommerce div.product form.cart .reset_variations {
+  opacity: 1;
+  font-size: 15px;
+  background: black !important;
+  color: white;
+  padding: 5px 20px;
+  margin: 30px 0;
+  border-radius: 30px;
+  font-weight: 400;
+}

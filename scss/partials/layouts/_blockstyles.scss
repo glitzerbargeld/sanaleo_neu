@@ -1,0 +1,69 @@
+/*FEATURED PRODUCT BLOCK*/
+
+.t-featured-product {
+
+    &::before{
+        border-radius: 50px;
+    }
+    max-width: 996px;
+    border-radius: 50px;
+    padding: 5%;
+    margin: 5% auto;
+
+
+    h2 {
+        font-size: 2em;
+        font-weight: 900;
+    }
+
+    h3 {
+            color: white;
+            margin: 0 0 1em 0;
+            text-transform: none !important;
+    }
+
+    h6 {
+        color: white !important;
+        font-size: 1em;
+        padding: 30px;
+        border-bottom: 2px solid white;
+        margin-bottom: 20px;
+
+       }
+
+    p {
+        text-align: center;
+        font-weight: 600;
+        margin-bottom: 1em;
+    }
+
+    a {
+        cursor: pointer;
+    }
+
+
+    .wc-block-featured-product__link {
+        cursor: pointer;
+        color: black;
+        
+    }
+
+    .wc-block-featured-product__description {
+        padding:10px !important;
+    }
+
+    .wc-block-featured-product__title {
+        min-height: 2.5em;
+        padding: 0 !important;
+    }
+
+    .woocommerce-Price-amount.amount {
+        font-size: 1.5em;
+        font-weight: 900;
+      }
+
+
+    .tax-info {
+        font-size: 0.8em;
+    }
+}

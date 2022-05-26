@@ -1,0 +1,27 @@
+/*STORE PAGES*/
+
+#store-wrapper {
+
+    margin-bottom: 50px;
+
+	.left-column {
+		max-width: 600px;
+
+		img {
+			margin-bottom: 10px;
+		}
+	}
+
+
+	@media (min-width: 768px) {
+		.left-column {
+			flex: 1
+		}
+
+		.right-column {
+            display:flex;
+            justify-content: flex-end;
+			flex: 2;
+		}
+	}
+}
