@@ -106,103 +106,6 @@ function add_to_cart_dofollow($html, $product)
   return $html;
 }
 
-/* MAILCHIMP NEWSLETTER COUPON CREATEN FOR SUBSCRIPTION*/
-
-add_action('rest_api_init', function () {
-  // here we are telling wordpress to use "webhook" namespace.
-  // This could be anything, but since it's a custom webhook receiver,
-  // it makes sense to call it webhook
-  // next is our "newMailChimpSubscriber" endpoint or route name
-  register_rest_route('webhook', '/newMailChimpSubscriber/', array(
-    'methods' => ['POST', 'GET'],
-    // and this is name of the function that will be called,
-    // when our /wp-json/webhook/newMailChimpSubscriber/ endpoint is called
-    'callback' => 'createDiscountCouponForNewSubscriber',
-  ));
-});
-
-// this function creates the coupon, for the newly registered user
-function createDiscountCouponForNewSubscriber()
-{
-  // create coupon   
-  $email = $_POST['data']['email'];
-  $coupon_code = 'welcome-' . $email; // Code
-  $amount = '10'; // Amount
-  $discount_type = 'percent'; // Type: fixed_cart, percent, fixed_product, percent_product
-
-  $coupon = array(
-    'post_title' => $coupon_code,
-    'post_content' => '',
-    'post_status' => 'publish',
-    'post_author' => 1,
-    'post_type' => 'shop_coupon'
-  );
-
-  $new_coupon_id = wp_insert_post($coupon);
-  //$exclude_products = array('61707', '61688', '61684', '61679', '61399');
-
-  // Add meta
-  update_post_meta($new_coupon_id, 'discount_type', $discount_type);
-  update_post_meta($new_coupon_id, 'coupon_amount', $amount);
-  update_post_meta($new_coupon_id, 'individual_use', 'yes');
-  update_post_meta($new_coupon_id, 'product_ids', '');
-  update_post_meta($new_coupon_id, 'exclude_product_ids', '61707, 61688, 61684, 61679, 61399');
-  update_post_meta($new_coupon_id, 'usage_limit', '1');
-  update_post_meta($new_coupon_id, 'expiry_date', '');
-  update_post_meta($new_coupon_id, 'apply_before_tax', 'yes');
-  update_post_meta($new_coupon_id, 'free_shipping', 'no');
-
-  return "ok";
-}
-
-
-add_action('rest_api_init', function () {
-  // here we are telling wordpress to use "webhook" namespace.
-  // This could be anything, but since it's a custom webhook receiver,
-  // it makes sense to call it webhook
-  // next is our "newMailChimpSubscriber" endpoint or route name
-  register_rest_route('webhook', '/newMoosendSubscriber/', array(
-    'methods' => ['POST', 'GET'],
-    // and this is name of the function that will be called,
-    // when our /wp-json/webhook/newMailChimpSubscriber/ endpoint is called
-    'callback' => 'createDiscountCouponForNewSubscriberME',
-  ));
-});
-
-// this function creates the coupon, for the newly registered user
-function createDiscountCouponForNewSubscriberME()
-{
-  // create coupon   
-  $email = $_POST['data']['EmailAddress'];
-  $coupon_code = 'welcome-' . $email; // Code
-  $amount = '10'; // Amount
-  $discount_type = 'percent'; // Type: fixed_cart, percent, fixed_product, percent_product
-
-  $coupon = array(
-    'post_title' => $coupon_code,
-    'post_content' => '',
-    'post_status' => 'publish',
-    'post_author' => 1,
-    'post_type' => 'shop_coupon'
-  );
-
-  $new_coupon_id = wp_insert_post($coupon);
-  //$exclude_products = array('61707', '61688', '61684', '61679', '61399');
-
-  // Add meta
-  update_post_meta($new_coupon_id, 'discount_type', $discount_type);
-  update_post_meta($new_coupon_id, 'coupon_amount', $amount);
-  update_post_meta($new_coupon_id, 'individual_use', 'yes');
-  update_post_meta($new_coupon_id, 'product_ids', '');
-  update_post_meta($new_coupon_id, 'exclude_product_ids', '61707, 61688, 61684, 61679, 61399');
-  update_post_meta($new_coupon_id, 'usage_limit', '1');
-  update_post_meta($new_coupon_id, 'expiry_date', '');
-  update_post_meta($new_coupon_id, 'apply_before_tax', 'yes');
-  update_post_meta($new_coupon_id, 'free_shipping', 'no');
-
-  return "ok";
-}
-
 /*
  * Warenkorb checken und Käufe mit bestimmten Merkmalen innerhalb einer Kategorie nicht zulassen (CBD Blüten < 10g)  
  * */
@@ -1069,6 +972,10 @@ function insert_seo_text()
     $seo_text = get_field('seo_text', $queried_object);
     echo $seo_text;
   }
+  else if(is_shop()) {
+    $seo_text = get_field('seo_text', 27);
+    echo $seo_text;
+  }
 }
 
 /** ADDS CUSTOMER REVIEWS TO SPECIFIC PAGES**/
@@ -1083,7 +990,7 @@ function customer_reviews()
 			</div>
 			<div class="ProductCategoryDescription">
 				<h2 class="BewertungsHeading">Was sind CBD-Blüten?</h2>
-				<p>Bei einer <b>CBD Blüte</b> handelt es sich um die <a href="https://sanaleo.com/gefriertrocknung/" title="CBD Blüten trocknen">getrocknete Knospe</a> der weiblichen Cannabispflanze. Die angebotenen Hanfblüten stammen ausschließlich von EU-zertifizierten Nutzhanfpflanzen mit einem minimalen THC-Gehalt – statt berauschendem THC gibt es eine volle Ladung entspannendes Cannabidiol. Im Vergleich zu anderen Teilen der Pflanze ist der CBD-Gehalt in den Cannabisblüten der Welt verschiedene Cannabissorten entdeckt.Im Jahr 1753 klassifizierte der schwedische Naturforscher Carl von Linné die Hanfsorte Cannabis Sativa, in der Übersetzung „gewöhnlicher Hanf“ bedeutend. In Indien wurde 32 Jahre später eine weitere Cannabissorte entdeckt und Cannabis Indica („Indischer Hanf“) getauft. 1926 beschrieb der Botaniker Dimitrij E. Janischwesky die Sorte Ruderalis, auch Ruderal-Hanf genannt.Grundsätzlich gehören diese Cannabissorten zur Pflanzengattung Cannabis Sativa L. Diese einzelnen Cannabissorten unterscheiden sich allerdings in ihrem Aussehen, ihrer Wachstums- und Blütezeit, ihrem Geruch, Geschmack und der natürlichen Zusammensetzung verschiedener Inhaltsstoffe. Mit der Zeit wurden verschiedenste Cannabispflanzen miteinander gekreuzt und so entstanden und entstehen immer neue unterschiedliche Cannabispflanzen und -sorten.</p>
+				<p>Bei einer <b>CBD Blüte</b> handelt es sich um die <a href="https://sanaleo.com/blog/gefriertrocknung/" title="CBD Blüten trocknen">getrocknete Knospe</a> der weiblichen Cannabispflanze. Die angebotenen Hanfblüten stammen ausschließlich von EU-zertifizierten Nutzhanfpflanzen mit einem minimalen THC-Gehalt – statt berauschendem THC gibt es eine volle Ladung entspannendes Cannabidiol. Im Vergleich zu anderen Teilen der Pflanze ist der CBD-Gehalt in den Cannabisblüten der Welt verschiedene Cannabissorten entdeckt.Im Jahr 1753 klassifizierte der schwedische Naturforscher Carl von Linné die Hanfsorte Cannabis Sativa, in der Übersetzung „gewöhnlicher Hanf“ bedeutend. In Indien wurde 32 Jahre später eine weitere Cannabissorte entdeckt und Cannabis Indica („Indischer Hanf“) getauft. 1926 beschrieb der Botaniker Dimitrij E. Janischwesky die Sorte Ruderalis, auch Ruderal-Hanf genannt.Grundsätzlich gehören diese Cannabissorten zur Pflanzengattung Cannabis Sativa L. Diese einzelnen Cannabissorten unterscheiden sich allerdings in ihrem Aussehen, ihrer Wachstums- und Blütezeit, ihrem Geruch, Geschmack und der natürlichen Zusammensetzung verschiedener Inhaltsstoffe. Mit der Zeit wurden verschiedenste Cannabispflanzen miteinander gekreuzt und so entstanden und entstehen immer neue unterschiedliche Cannabispflanzen und -sorten.</p>
 			</div>
 			
 			<div class="ProductCategoryDescription">
@@ -1093,7 +1000,7 @@ function customer_reviews()
 <li>Green House: | Mango Kush</li>
 <li>CBD Hasch: Litani Hash | Caramello Hash</li>
 </p>
-<p>Die Analysezertifikate zu jeder Sorte können auf der entsprechenden Produktinformationsseite eingesehen werden. Sie geben Aufschluss über den Gehalt der einzelnen <a href="https://sanaleo.com/ubersicht-cannabinoide-der-hanfplanze/" title="Die Cannabinoide der Hanfpflanze">Cannabinoide</a>.
+<p>Die Analysezertifikate zu jeder Sorte können auf der entsprechenden Produktinformationsseite eingesehen werden. Sie geben Aufschluss über den Gehalt der einzelnen <a href="https://sanaleo.com/cbd-wissen/ubersicht-cannabinoide-der-hanfplanze/" title="Die Cannabinoide der Hanfpflanze">Cannabinoide</a>.
 </p>
 			</div>
 			
@@ -1119,9 +1026,9 @@ function customer_reviews()
 			</div>
 			<div class="ProductCategoryDescription">
 				<h3 class="BewertungsHeading">WIE NEHME ICH MEIN SANALEO-VAPE-STARTERKIT IN BETRIEB?</h3>
-				<p>Lade den Pen vor der ersten Nutzung sicherheitshalber noch einmal auf. Wenn er vollständig geladen ist, leuchtet das grüne Licht durchgängig. Verbinde anschließend deine <a href="https://sanaleo.com/cbd-vape/pineapple-express-kartusche/" title="CBD Kartuschen von Sanaleo kaufen">SANALEO-Vape CBD-Kartusche</a> mit dem <a href="https://sanaleo.com/cbd-vape/cbd-pen/" title="CBD Vape Pen kaufen">SANALEO-Vape-Pen</a> und ziehe daran. Normalerweise sollte es direkt zu einer Dampfbildung kommen, sobald du an dem Pen ziehst. 
+				<p>Lade den Pen vor der ersten Nutzung sicherheitshalber noch einmal auf. Wenn er vollständig geladen ist, leuchtet das grüne Licht durchgängig. Verbinde anschließend deine SANALEO-Vape CBD-Kartusche mit dem <a href="https://sanaleo.com/cbd-vape/cbd-pen/" title="CBD Vape Pen kaufen">SANALEO-Vape-Pen</a> und ziehe daran. Normalerweise sollte es direkt zu einer Dampfbildung kommen, sobald du an dem Pen ziehst. 
 
-      Wichtig ist, dass Du gleichmäßige und nicht zu starke Züge nimmst. Andernfalls könnten die hohen Temperaturen dafür sorgen, dass wichtige Terpene zerstört werden, die im Sinne des <a href="https://sanaleo.com/der-entourage-effekt/" title="Der Entourage Effekt">Entourage-Effekts</a> unbedingt erhalten werden sollten.
+      Wichtig ist, dass Du gleichmäßige und nicht zu starke Züge nimmst. Andernfalls könnten die hohen Temperaturen dafür sorgen, dass wichtige Terpene zerstört werden, die im Sinne des <a href="https://sanaleo.com/blog/der-entourage-effekt/" title="Der Entourage Effekt">Entourage-Effekts</a> unbedingt erhalten werden sollten.
       
       Ob die Kartusche permanent auf dem Pen bleibt oder nicht, ist Dir überlassen. Er versetzt sich automatisch in den Standby-Modus, solange länger nicht daran gezogen wurde. Der Pen muss nicht zwangsläufig nach einer bestimmten Zeit entsorgt oder ausgetauscht werden.</p>
 			</div>
@@ -1207,7 +1114,7 @@ Ein Besuch der Mary Jane Berlin bietet Dir die Möglichkeit die neuesten Entwick
 		
 		<div class="ProductCategoryDescription">
 		<h2>CBD Kosmetik für Haut, Muskeln und Gelenke</h2>
-		<p><a href="https://sanaleo.com/was-ist-cbd/" title="Was ist CBD?">CBD</a> ist ein chemischer Pflanzenstoff, der in unserem Körper im sogenannten "Endocannabinoidsystem" wirkt. Dabei knüpft das CBD an Rezeptoren an, von denen sich besonders viele auf unserer Haut befinden. Seit kurzem gilt CBD deshalb als vielversprechendes Mittel in den Bereichen Kosmetik und Wellness. Um von ausreichender Qualität zu sein, 		sollten CBD-Kosmetik- und Wellnessprodukte mindestens 1% CBD enthalten. Diesem Anspruch wird unsere neue Kosmetik- und Wellnesslinie in vollem Umfang gerecht.</p>
+		<p><a href="https://sanaleo.com/" title="CBD">CBD</a> ist ein chemischer Pflanzenstoff, der in unserem Körper im sogenannten "Endocannabinoidsystem" wirkt. Dabei knüpft das CBD an Rezeptoren an, von denen sich besonders viele auf unserer Haut befinden. Seit kurzem gilt CBD deshalb als vielversprechendes Mittel in den Bereichen Kosmetik und Wellness. Um von ausreichender Qualität zu sein, 		sollten CBD-Kosmetik- und Wellnessprodukte mindestens 1% CBD enthalten. Diesem Anspruch wird unsere neue Kosmetik- und Wellnesslinie in vollem Umfang gerecht.</p>
 		</div>
 		';
   }
@@ -1226,7 +1133,7 @@ function sana_faq()
     echo '
       <!--<button class="faq-accordion-archive"><h2 class="accordion_heading">WIE WERDEN CBD-HANFBLÜTEN ANGEBAUT?</h2><i class="faq-archive-info-open"></i></button>
       <div class="panel-archive">
-        <p>Unser Sortiment umfasst <a href="https://sanaleo.com/cbd-was-ist-das-uberhaupt/#Wie_wird_CBD-Hanf_angebaut" title="Die unterschiedlichen Anbaumethoden von Hanf">Outdoor, Indoor und Greenhouse CBD Aromablüten</a> aus nachhaltigem Anbau. Beim Anbau werden weder Pestizide, Herbizide oder chemische Düngemittel verwendet. Unsere Hersteller haben allesamt eine langjährige Expertise beim Anbau von Cannabis vorzuweisen. Das ermöglicht es uns, jederzeit einen exklusiven Anspruch hinsichtlich unserer <a href="https://sanaleo.com/" title="CBD Produkte von Sanaleo">CBD-Produkte</a> zu gewährleisten. Freu’ Dich auf beste Qualität.</p>
+        <p>Unser Sortiment umfasst Outdoor, Indoor und Greenhouse CBD Aromablüten aus nachhaltigem Anbau. Beim Anbau werden weder Pestizide, Herbizide oder chemische Düngemittel verwendet. Unsere Hersteller haben allesamt eine langjährige Expertise beim Anbau von Cannabis vorzuweisen. Das ermöglicht es uns, jederzeit einen exklusiven Anspruch hinsichtlich unserer <a href="https://sanaleo.com/" title="CBD Produkte von Sanaleo">CBD-Produkte</a> zu gewährleisten. Freu’ Dich auf beste Qualität.</p>
       </div>-->
 
       <!--<button class="faq-accordion-archive"><h2 class="accordion_heading">WELCHE CBD-AROMABLÜTEN SIND BEI UNS ERHÄLTLICH?</h2><i class="faq-archive-info-open"></i></button>
@@ -1262,7 +1169,7 @@ Die Analysezertifikate zu jeder Sorte können auf der entsprechenden Produktinfo
 	  
 	  <button class="faq-accordion-archive"><h2 class="accordion_heading">WIE UNTERSCHEIDEN SICH SANALEO-CBD-BLÜTEN DER SORTE NACH?</h2><i class="faq-archive-info-open"></i></button>
       <div class="panel-archive">
-        <p>Wie oben bereits beschrieben, unterscheiden sich unsere CBD Hanfblüten in ihrem Aussehen, Geruch, Geschmack und in ihrer natürlichen Zusammensetzung der verschiedenen Inhaltsstoffe. Außerdem unterscheiden sich unsere Blüten in der Art und Weise des Anbaus. Unsere Sorten werden <a href="https://sanaleo.com/cbd-was-ist-das-uberhaupt/#Wie_wird_CBD-Hanf_angebaut" title="Die unterschiedlichen Anbaumethoden von Hanf">outdoor, indoor oder in einem Gewächshaus gegrowt</a>. Die entsprechende Anbauweise findest Du in der jeweiligen Produktbeschreibung oder in der unten aufgelisteten Tabelle.</p>
+        <p>Wie oben bereits beschrieben, unterscheiden sich unsere CBD Hanfblüten in ihrem Aussehen, Geruch, Geschmack und in ihrer natürlichen Zusammensetzung der verschiedenen Inhaltsstoffe. Außerdem unterscheiden sich unsere Blüten in der Art und Weise des Anbaus. Unsere Sorten werden outdoor, indoor oder in einem Gewächshaus gegrowt. Die entsprechende Anbauweise findest Du in der jeweiligen Produktbeschreibung oder in der unten aufgelisteten Tabelle.</p>
       </div>
 	  
 	  <!--<button class="faq-accordion-archive"><h2 class="accordion_heading">WAS MACHT CBD GRAS VON SANALEO BESONDERS?</h2><i class="faq-archive-info-open"></i></button>
@@ -1281,27 +1188,27 @@ Die Analysezertifikate zu jeder Sorte können auf der entsprechenden Produktinfo
 	  
 	  <button class="faq-accordion-archive"><h2 class="accordion_heading">WAS IST CBD?</h2><i class="faq-archive-info-open"></i></button>
       <div class="panel-archive">
-        <p><a href="https://sanaleo.com/cbd-was-ist-das-uberhaupt/" title="Was ist CBD?">CBD</a> steht für Cannabidiol und ist ein Inhaltsstoff der Cannabispflanze. Er gehört zu den sogenannten Phytocannabinoiden. Dabei handelt es sich um pflanzliche Inhaltsstoffe, die nur die Cannabispflanze produziert. Alle Säugetiere, Fische und Weichtiere produzieren jedoch von Natur aus körpereigene Cannabinoide, die den Phytocannabinoiden strukturell sehr ähnlich sind. Unsere körpereigenen Cannabinoide sind Teil des <a href="https://sanaleo.com/was-ist-cbd-und-wie-wirkt-es-im-menschlichen-koerper/" title="Das Endocannabinoid-System">Endocannabinoid-Systems</a>, welches an unserem Gesundheitserhalt, an gewissen Genesungsprozessen und folglich auch an unserer Gemütslage beteiligt ist. Die wissenschaftliche These ist: Exogen zugeführte Cannabinoide stimulieren das System, das einen Ausgleich der ausgeschütteten Botenstoffe anstrebt. Durch die Entdeckung dieses körpereigenen Systems hat sich das Verständnis der Wissenschaft von Cannabidiol und anderer Phytocannabinoide enorm erweitert und weiterführende Forschung angeregt.</p>
+        <p><a href="https://sanaleo.com/" title="Was ist CBD?">CBD</a> steht für Cannabidiol und ist ein Inhaltsstoff der Cannabispflanze. Er gehört zu den sogenannten Phytocannabinoiden. Dabei handelt es sich um pflanzliche Inhaltsstoffe, die nur die Cannabispflanze produziert. Alle Säugetiere, Fische und Weichtiere produzieren jedoch von Natur aus körpereigene Cannabinoide, die den Phytocannabinoiden strukturell sehr ähnlich sind. Unsere körpereigenen Cannabinoide sind Teil des <a href="https://sanaleo.com/blog/was-ist-cbd-und-wie-wirkt-es-im-menschlichen-koerper/" title="Das Endocannabinoid-System">Endocannabinoid-Systems</a>, welches an unserem Gesundheitserhalt, an gewissen Genesungsprozessen und folglich auch an unserer Gemütslage beteiligt ist. Die wissenschaftliche These ist: Exogen zugeführte Cannabinoide stimulieren das System, das einen Ausgleich der ausgeschütteten Botenstoffe anstrebt. Durch die Entdeckung dieses körpereigenen Systems hat sich das Verständnis der Wissenschaft von Cannabidiol und anderer Phytocannabinoide enorm erweitert und weiterführende Forschung angeregt.</p>
       </div>
 	  
 	  <button class="faq-accordion-archive"><h2 class="accordion_heading">SIND CBD-BLÜTEN IN DEUTSCHLAND LEGAL?</h2><i class="faq-archive-info-open"></i></button>
       <div class="panel-archive">
-        <p>Grundsätzlich musst Du dir als CBD-Nutzer*in keine Sorge vor einer rechtlichen Verfolgung nach einem Drogentest machen. CBD ist (im Gegensatz zu THC) kein Rauschmittel. Darum fällt Cannabidiol nicht unter das Betäubungsmittelgesetz. Der THC-Gehalt in sämtlichen Produkten muss in Deutschland unter 0,2% liegen. All unsere Produkte werden vor dem Verkauf von einem unabhängigen Labor auf ihre Inhaltsstoffe und die <a href="https://sanaleo.com/zur-rechtslage-von-cbd/" title="CBD und Recht in Deutschand">Einhaltung der rechtlichen Rahmenbedingungen</a> untersucht und zertifiziert. führe ein Analysenzertifikat mit Dir mit. So bist du garantiert auf der sicheren Seite.</p>
+        <p>Grundsätzlich musst Du dir als CBD-Nutzer*in keine Sorge vor einer rechtlichen Verfolgung nach einem Drogentest machen. CBD ist (im Gegensatz zu THC) kein Rauschmittel. Darum fällt Cannabidiol nicht unter das Betäubungsmittelgesetz. Der THC-Gehalt in sämtlichen Produkten muss in Deutschland unter 0,2% liegen. All unsere Produkte werden vor dem Verkauf von einem unabhängigen Labor auf ihre Inhaltsstoffe und die <a href="https://sanaleo.com/blog/zur-rechtslage-von-cbd/" title="CBD und Recht in Deutschand">Einhaltung der rechtlichen Rahmenbedingungen</a> untersucht und zertifiziert. führe ein Analysenzertifikat mit Dir mit. So bist du garantiert auf der sicheren Seite.</p>
       </div>
 	  
 	  <button class="faq-accordion-archive"><h2 class="accordion_heading">WAS IST DER UNTERSCHIED ZWISCHEN THC UND CBD??</h2><i class="faq-archive-info-open"></i></button>
       <div class="panel-archive">
-        <p>Das neben Cannabidiol bekannteste Cannabinoid ist THC. Es ist für die berauschende <a href="https://sanaleo.com/wie-wirkt-cbd-im-menschlichen-koerper/" title="Wie wirkt CBD in unserem Körper?">Wirkung von Cannabis</a> verantwortlich und in Deutschland verboten. Chemisch betrachtet unterscheiden sich CBD und THC nur minimal in ihrer Struktur. Dennoch unterscheiden sich die beiden Cannabinoide essentiell in ihrer Wirkung. CBD wirkt im Vergleich zu THC nicht berauschend. Weitere Informationen zum <a href="https://cbdratgeber.de/legalitaet-cannabidiol-cannabis/" title="Ist CBD legal?">rechtlichen Status von CBD-Produkten findet ihr beim CBD-Ratgeber</a>.</p>
+        <p>Das neben Cannabidiol bekannteste Cannabinoid ist THC. Es ist für die berauschende <a href="https://sanaleo.com/blog/wie-wirkt-cbd-im-menschlichen-koerper/" title="Wie wirkt CBD in unserem Körper?">Wirkung von Cannabis</a> verantwortlich und in Deutschland verboten. Chemisch betrachtet unterscheiden sich CBD und THC nur minimal in ihrer Struktur. Dennoch unterscheiden sich die beiden Cannabinoide essentiell in ihrer Wirkung. CBD wirkt im Vergleich zu THC nicht berauschend. Weitere Informationen zum <a href="https://cbdratgeber.de/legalitaet-cannabidiol-cannabis/" title="Ist CBD legal?">rechtlichen Status von CBD-Produkten findet ihr beim CBD-Ratgeber</a>.</p>
       </div>
 	  
 	  <button class="faq-accordion-archive"><h2 class="accordion_heading">CANNABIDIOL ALS PFLANZLICHE ALTERNATIVE?</h2><i class="faq-archive-info-open"></i></button>
       <div class="panel-archive">
-        <p>Die Wenigsten von uns sind im Alltag frei von Beschwerden. In Zeiten des Leistungsdrucks und des ständigen “Funktionieren-Müssens” neigen wir dazu, sie leichtfertig zu ignorieren. Schnelle Abhilfe versprechen massenhaft pharmazeutische Produkte, die nicht frei von Nebenwirkungen sind und immer weniger Vertrauen erfahren. Nicht ohne Grund boomen Naturprodukte so sehr wie noch nie. Natur statt Chemie lautet die Devise. Die wichtigste (Wieder-)Entdeckung der vergangenen Jahre: <a href="https://sanaleo.com/anwendungsfelder-und-vorteile-der-hanfpflanze/" title="Anwendungsgebiete Cannabis">Das Potential von Cannabis.</a></p>
+        <p>Die Wenigsten von uns sind im Alltag frei von Beschwerden. In Zeiten des Leistungsdrucks und des ständigen “Funktionieren-Müssens” neigen wir dazu, sie leichtfertig zu ignorieren. Schnelle Abhilfe versprechen massenhaft pharmazeutische Produkte, die nicht frei von Nebenwirkungen sind und immer weniger Vertrauen erfahren. Nicht ohne Grund boomen Naturprodukte so sehr wie noch nie. Natur statt Chemie lautet die Devise. Die wichtigste (Wieder-)Entdeckung der vergangenen Jahre: <a href="https://sanaleo.com/blog/anwendungsfelder-und-vorteile-der-hanfpflanze/" title="Anwendungsgebiete Cannabis">Das Potential von Cannabis.</a></p>
       </div>
 		
 	<button class="faq-accordion-archive"><h2 class="accordion_heading">WAS SIND TERPENE?</h2><i class="faq-archive-info-open"></i></button>
       <div class="panel-archive">
-        <p><a href="https://sanaleo.com/cbd-was-ist-das-uberhaupt/#Ueberblick_Welche_Cannabinoide_gibt_es_Was_sind_Terpene" title="Was sind Terpene">Terpene</a> sind kurz gesagt Pflanzeninhaltsstoffe. Sie übernehmen häufig funktionale Eigenschaften und sind in vielen Fällen für den charakteristischen Geruch einer Pflanze verantwortlich. Die aromatische Fülle soll Insekten zur Bestäubung anlocken. Auch die Hanfpflanze enthält neben den zentralen Cannabinoiden eine Vielzahl an Terpenen, die den unverkennbaren Geruch verantworten. Die Auswirkungen, die Terpene auf den Menschen haben, werden bereits in der Aromatherapie genutzt. Wissenschaftliche Erkenntnisse legen nahe, dass Hanfextrakte, die neben Cannabidiol das volle Spektrum der natürlichen Terpene der Pflanze enthalten, eine höhere Bioverfügbarkeit aufweisen und somit eine bessere Wirkung entfalten. Man spricht hier vom sog. <a href="https://sanaleo.com/der-entourage-effekt/" title="Entourage Effekt">Entourage-Effekt</a>: Die Wirkung der Pflanze ist größer als die Summe ihrer Bestandteile. Bis heute hat die Forschung die Struktur von etwa 20.000 Terpenen identifiziert und analysiert. Die wichtigsten im Zusammenhang mit CBD sind: B-Caryophyllene, Limonene, Linalool, Myrzene und Pinene. Das Zusammenspiel der Terpene birgt enormes Potential, das es verstehen und richtig anzuwenden gilt! Weitere Informationen zu den genannten Terpenen sind im <a href="https://sanaleo.com/cbd-was-ist-das-uberhaupt/#Was_Sind_Terpene" title="CBD Wiki - alle Informationen zu CBD">CBD-Wiki</a> zu finden.</p>
+        <p>Terpene sind kurz gesagt Pflanzeninhaltsstoffe. Sie übernehmen häufig funktionale Eigenschaften und sind in vielen Fällen für den charakteristischen Geruch einer Pflanze verantwortlich. Die aromatische Fülle soll Insekten zur Bestäubung anlocken. Auch die Hanfpflanze enthält neben den zentralen Cannabinoiden eine Vielzahl an Terpenen, die den unverkennbaren Geruch verantworten. Die Auswirkungen, die Terpene auf den Menschen haben, werden bereits in der Aromatherapie genutzt. Wissenschaftliche Erkenntnisse legen nahe, dass Hanfextrakte, die neben Cannabidiol das volle Spektrum der natürlichen Terpene der Pflanze enthalten, eine höhere Bioverfügbarkeit aufweisen und somit eine bessere Wirkung entfalten. Man spricht hier vom sog. <a href="https://sanaleo.com/blog/der-entourage-effekt/" title="Entourage Effekt">Entourage-Effekt</a>: Die Wirkung der Pflanze ist größer als die Summe ihrer Bestandteile. Bis heute hat die Forschung die Struktur von etwa 20.000 Terpenen identifiziert und analysiert. Die wichtigsten im Zusammenhang mit CBD sind: B-Caryophyllene, Limonene, Linalool, Myrzene und Pinene. Das Zusammenspiel der Terpene birgt enormes Potential, das es verstehen und richtig anzuwenden gilt! Weitere Informationen zu den genannten Terpenen sind im CBD-Wiki zu finden.</p>
       </div>
 	  
 	  <button class="faq-accordion-archive"><h2 class="accordion_heading">CBD BLÜTEN MIT KLARNA ODER PAYPAL BEZAHLEN</h2><i class="faq-archive-info-open"></i></button>
@@ -1318,7 +1225,7 @@ Die Analysezertifikate zu jeder Sorte können auf der entsprechenden Produktinfo
 <div class="product-table-wrapper p-960">
     <div class="product-table-col">
         <div class="product-table-header">
-            <span class="h4_span"><a title="Outdoor CBD Anbau" href="https://sanaleo.com/cbd-was-ist-das-uberhaupt/#Outdoor" target="_blank" rel="noopener">Outdoor</a></span>
+            <span class="h4_span">Outdoor</span>
             <img class="product-table-icon" src="' . get_stylesheet_directory_uri() . '/icons/icon_outdoor.svg" alt="CBD Gras outdoor" width="70px">
         </div>
         <div class="product-table-content">
@@ -1329,7 +1236,7 @@ Die Analysezertifikate zu jeder Sorte können auf der entsprechenden Produktinfo
     </div>
     <div class="product-table-col">
         <div class="product-table-header">
-            <span class="h4_span"><a title="Indoor CBD Anbau" href="https://sanaleo.com/cbd-was-ist-das-uberhaupt/#Indoor" target="_blank" rel="noopener">Indoor</a></span>
+            <span class="h4_span">Indoor</span>
             <img class="product-table-icon" src="' . get_stylesheet_directory_uri() . '/icons/icon_indoor.svg" alt="CBD Blüten indoor" width="70px">
         </div>
         <div class="product-table-content">
@@ -1344,7 +1251,7 @@ Die Analysezertifikate zu jeder Sorte können auf der entsprechenden Produktinfo
     </div>
     <div class="product-table-col">
         <div class="product-table-header">
-            <span class="h4_span"><a title="Greenhouse CBD Anbau" href="https://sanaleo.com/cbd-was-ist-das-uberhaupt/#Greenhouse" target="_blank" rel="noopener">Greenhouse</a></span>
+            <span class="h4_span">Greenhouse</span>
             <img class="product-table-icon" src="' . get_stylesheet_directory_uri() . '/icons/icon_greenhouse.svg" alt="CBD Hanf Blüten greenhouse" width="70px">
         </div>
         <div class="product-table-content">
@@ -1421,7 +1328,7 @@ Die Analysezertifikate zu jeder Sorte können auf der entsprechenden Produktinfo
     <div class="panel-archive">
       <p>Lade den Pen vor der ersten Nutzung sicherheitshalber noch einmal auf. Wenn er vollständig geladen ist, leuchtet das grüne Licht durchgängig. Verbinde anschließend deine <a href="https://sanaleo.com/cbd-vape/cbd-kartusche-mit-hanfaroma/" title="CBD Kartuschen von Sanaleo kaufen">SANALEO-Vape CBD Kartusche</a> mit dem <a href="https://sanaleo.com/cbd-vape/cbd-pen/" title="CBD Vape Pen kaufen">SANALEO-Vape-Pen</a> und ziehe daran. Normalerweise sollte es direkt zu einer Dampfbildung kommen, sobald du an dem Pen ziehst. 
 
-      Wichtig ist, dass Du gleichmäßige und nicht zu starke Züge nimmst. Andernfalls könnten die hohen Temperaturen dafür sorgen, dass wichtige Terpene zerstört werden, die im Sinne des <a href="https://sanaleo.com/der-entourage-effekt/" title="Der Entourage Effekt">Entourage-Effekts</a> unbedingt erhalten werden sollten.
+      Wichtig ist, dass Du gleichmäßige und nicht zu starke Züge nimmst. Andernfalls könnten die hohen Temperaturen dafür sorgen, dass wichtige Terpene zerstört werden, die im Sinne des <a href="https://sanaleo.com/blog/der-entourage-effekt/" title="Der Entourage Effekt">Entourage-Effekts</a> unbedingt erhalten werden sollten.
       
       Ob die Kartusche permanent auf dem Pen bleibt oder nicht, ist Dir überlassen. Er versetzt sich automatisch in den Standby-Modus, solange länger nicht daran gezogen wurde. Der Pen muss nicht zwangsläufig nach einer bestimmten Zeit entsorgt oder ausgetauscht werden.
       </p>
@@ -1435,16 +1342,16 @@ Die Analysezertifikate zu jeder Sorte können auf der entsprechenden Produktinfo
     </div>-->
     <button class="faq-accordion-archive"><h2 class="accordion_heading">WAS SIND TERPENE?</h2><i class="faq-archive-info-open"></i></button>
     <div class="panel-archive">
-      <p>Terpene sind kurz gesagt Pflanzeninhaltsstoffe. Sie übernehmen häufig funktionale Eigenschaften und sind in vielen Fällen für den charakteristischen Geruch einer Pflanze verantwortlich. Die aromatische Fülle soll Insekten zur Bestäubung anlocken. Auch die Hanfpflanze und vorallem <a href="https://sanaleo.com/cbd-blueten/" title="CBD Blüten">CBD Blüten</a> enthalten neben den <a href="https://sanaleo.com/ubersicht-cannabinoide-der-hanfplanze/" title="Die Cannabinoide der Hanfpflanze">zentralen Cannabinoiden</a> eine Vielzahl an Terpenen, die den unverkennbaren Geruch verantworten. Die Auswirkungen, die Terpene auf den Menschen haben, werden bereits in der Aromatherapie genutzt. Wissenschaftliche Erkenntnisse legen nahe, dass Hanfextrakte, die neben CBD das volle Spektrum der natürlichen Terpene der Pflanze enthalten, eine höhere Bioverfügbarkeit aufweisen und somit eine bessere Wirkung entfalten. Man spricht hier vom sog. <a href="https://sanaleo.com/der-entourage-effekt/" title="Entourage Effekt">Entourage-Effekt</a>: Die Wirkung der Pflanze ist größer als die Summe ihrer Bestandteile. Bis heute hat die Forschung die Struktur von etwa 20.000 Terpenen identifiziert und analysiert. Die wichtigsten im Zusammenhang mit CBD sind: B-Caryophyllene, Limonene, Linalool, Myrzene und Pinene. Das Zusammenspiel der Terpene birgt enormes Potential, das es verstehen und richtig anzuwenden gilt! Weitere Informationen zu den genannten Terpenen sind im <a href="https://sanaleo.com/cbd-was-ist-das-uberhaupt/#Was_Sind_Terpene" title="CBD Wiki - alle Informationen zu CBD">CBD-Wiki</a> zu finden.</p>
+      <p>Terpene sind kurz gesagt Pflanzeninhaltsstoffe. Sie übernehmen häufig funktionale Eigenschaften und sind in vielen Fällen für den charakteristischen Geruch einer Pflanze verantwortlich. Die aromatische Fülle soll Insekten zur Bestäubung anlocken. Auch die Hanfpflanze und vorallem <a href="https://sanaleo.com/cbd-blueten/" title="CBD Blüten">CBD Blüten</a> enthalten neben den <a href="https://sanaleo.com/cbd-wissen/ubersicht-cannabinoide-der-hanfplanze/" title="Die Cannabinoide der Hanfpflanze">zentralen Cannabinoiden</a> eine Vielzahl an Terpenen, die den unverkennbaren Geruch verantworten. Die Auswirkungen, die Terpene auf den Menschen haben, werden bereits in der Aromatherapie genutzt. Wissenschaftliche Erkenntnisse legen nahe, dass Hanfextrakte, die neben CBD das volle Spektrum der natürlichen Terpene der Pflanze enthalten, eine höhere Bioverfügbarkeit aufweisen und somit eine bessere Wirkung entfalten. Man spricht hier vom sog. <a href="https://sanaleo.com/blog/der-entourage-effekt/" title="Entourage Effekt">Entourage-Effekt</a>: Die Wirkung der Pflanze ist größer als die Summe ihrer Bestandteile. Bis heute hat die Forschung die Struktur von etwa 20.000 Terpenen identifiziert und analysiert. Die wichtigsten im Zusammenhang mit CBD sind: B-Caryophyllene, Limonene, Linalool, Myrzene und Pinene. Das Zusammenspiel der Terpene birgt enormes Potential, das es verstehen und richtig anzuwenden gilt! Weitere Informationen zu den genannten Terpenen sind im CBD-Wiki zu finden.</p>
     </div>
     <button class="faq-accordion-archive"><h2 class="accordion_heading">WAS IST CBD?</h2><i class="faq-archive-info-open"></i></button>
     <div class="panel-archive">
-      <p><a href="https://sanaleo.com/cbd-was-ist-das-uberhaupt/" title="Was ist CBD?">CBD</a> steht für Cannabidiol und ist ein Inhaltsstoff der Cannabispflanze. Er gehört zu den sogenannten Phytocannabinoiden. Dabei handelt es sich um pflanzliche Inhaltsstoffe, die nur die Cannabispflanze produziert. Alle Säugetiere, Fische und Weichtiere produzieren jedoch von Natur aus körpereigene Cannabinoide, die den Phytocannabinoiden strukturell sehr ähnlich sind. Unsere körpereigenen Cannabinoide sind Teil des <a href="https://sanaleo.com/was-ist-cbd-und-wie-wirkt-es-im-menschlichen-koerper/" title="Das Endocannabinoid-System">Endocannabinoid-Systems</a>, welches an unserem Gesundheitserhalt, an gewissen Genesungsprozessen und folglich auch an unserer Gemütslage beteiligt ist. Die wissenschaftliche These ist: Exogen zugeführte Cannabinoide stimulieren das System, das einen Ausgleich der ausgeschütteten Botenstoffe anstrebt. Durch die Entdeckung dieses körpereigenen Systems hat sich das Verständnis der Wissenschaft von CBD und anderer Phytocannabinoide enorm erweitert und weiterführende Forschung angeregt.</p>
+      <p><a href="https://sanaleo.com/" title="Was ist CBD?">CBD</a> steht für Cannabidiol und ist ein Inhaltsstoff der Cannabispflanze. Er gehört zu den sogenannten Phytocannabinoiden. Dabei handelt es sich um pflanzliche Inhaltsstoffe, die nur die Cannabispflanze produziert. Alle Säugetiere, Fische und Weichtiere produzieren jedoch von Natur aus körpereigene Cannabinoide, die den Phytocannabinoiden strukturell sehr ähnlich sind. Unsere körpereigenen Cannabinoide sind Teil des <a href="https://sanaleo.com/blog/was-ist-cbd-und-wie-wirkt-es-im-menschlichen-koerper/" title="Das Endocannabinoid-System">Endocannabinoid-Systems</a>, welches an unserem Gesundheitserhalt, an gewissen Genesungsprozessen und folglich auch an unserer Gemütslage beteiligt ist. Die wissenschaftliche These ist: Exogen zugeführte Cannabinoide stimulieren das System, das einen Ausgleich der ausgeschütteten Botenstoffe anstrebt. Durch die Entdeckung dieses körpereigenen Systems hat sich das Verständnis der Wissenschaft von CBD und anderer Phytocannabinoide enorm erweitert und weiterführende Forschung angeregt.</p>
       </p>   
     </div>
     <button class="faq-accordion-archive"><h2 class="accordion_heading">CBD ALS PFLANZLICHE ALTERNATIVE?</h2><i class="faq-archive-info-open"></i></button>
     <div class="panel-archive">
-      <p>Die Wenigsten von uns sind im Alltag frei von Beschwerden. In Zeiten des Leistungsdrucks und des ständigen “Funktionieren-Müssens” neigen wir dazu, sie leichtfertig zu ignorieren. Schnelle Abhilfe versprechen massenhaft pharmazeutische Produkte, die nicht frei von Nebenwirkungen sind und immer weniger Vertrauen erfahren. Nicht ohne Grund boomen Naturprodukte so sehr wie noch nie. Natur statt Chemie lautet die Devise. Die wichtigste (Wieder-)Entdeckung der vergangenen Jahre: <a href="https://sanaleo.com/anwendungsfelder-und-vorteile-der-hanfpflanze/" title="Anwendungsgebiete Cannabis">Das Potential von Cannabis.</a></p>   
+      <p>Die Wenigsten von uns sind im Alltag frei von Beschwerden. In Zeiten des Leistungsdrucks und des ständigen “Funktionieren-Müssens” neigen wir dazu, sie leichtfertig zu ignorieren. Schnelle Abhilfe versprechen massenhaft pharmazeutische Produkte, die nicht frei von Nebenwirkungen sind und immer weniger Vertrauen erfahren. Nicht ohne Grund boomen Naturprodukte so sehr wie noch nie. Natur statt Chemie lautet die Devise. Die wichtigste (Wieder-)Entdeckung der vergangenen Jahre: <a href="https://sanaleo.com/blog/anwendungsfelder-und-vorteile-der-hanfpflanze/" title="Anwendungsgebiete Cannabis">Das Potential von Cannabis.</a></p>   
     </div>
     <button class="faq-accordion-archive"><h2 class="accordion_heading">KANN CBD einen Rauschzustand auslösen?</h2><i class="faq-archive-info-open"></i></button>
     <div class="panel-archive">
@@ -1467,7 +1374,7 @@ Die Analysezertifikate zu jeder Sorte können auf der entsprechenden Produktinfo
     <button class="faq-accordion-archive"><h2 class="accordion_heading">CBD UND SCHWANGERE</h2><i class="faq-archive-info-open"></i></button>
     <div class="panel-archive">
       <p>
-      Wir raten Schwangeren von der Anwendung von <a href="https://sanaleo.com/shop-sortiment/" title="CBD Produkte im Onlineshop kaufen">CBD-Produkten</a> ab.
+      Wir raten Schwangeren von der Anwendung von <a href="https://sanaleo.com/" title="CBD Produkte">CBD-Produkten</a> ab.
       </p>   
     </div>
 		  
@@ -1494,7 +1401,7 @@ Die Analysezertifikate zu jeder Sorte können auf der entsprechenden Produktinfo
     <button class="faq-accordion-archive"><h2 class="accordion_heading">WAS IST CBD?</h2><i class="faq-archive-info-open"></i></button>
     <div class="panel-archive">
       <p>
-      <a href="https://sanaleo.com/cbd-was-ist-das-uberhaupt/" title="Was ist CBD?">CBD</a> steht für Cannabidiol und ist ein Inhaltsstoff der Cannabispflanze. Er gehört zu den sogenannten Phytocannabinoiden. Dabei handelt es sich um pflanzliche Inhaltsstoffe, die nur die Cannabispflanze produziert. Alle Säugetiere, Fische und Weichtiere produzieren jedoch von Natur aus körpereigene Cannabinoide, die den Phytocannabinoiden strukturell sehr ähnlich sind. Unsere körpereigenen <a href="https://sanaleo.com/ubersicht-cannabinoide-der-hanfplanze/" title="Die Cannabinoide der Hanfpflanze">Cannabinoide</a> sind Teil des <a href="https://sanaleo.com/der-entourage-effekt/" title="Das Endocannabinoidsystem">Endocannabinoid-Systems</a>, welches an unserem Gesundheitserhalt, an gewissen Genesungsprozessen und folglich auch an unserer Gemütslage beteiligt ist. Die wissenschaftliche These ist: Exogen zugeführte Cannabinoide stimulieren das System, das einen Ausgleich der ausgeschütteten Botenstoffe anstrebt. Durch die Entdeckung dieses körpereigenen Systems hat sich das Verständnis der Wissenschaft von CBD und anderer Phytocannabinoide enorm erweitert und weiterführende Forschung angeregt. 
+      <a href="https://sanaleo.com/" title="Was ist CBD?">CBD</a> steht für Cannabidiol und ist ein Inhaltsstoff der Cannabispflanze. Er gehört zu den sogenannten Phytocannabinoiden. Dabei handelt es sich um pflanzliche Inhaltsstoffe, die nur die Cannabispflanze produziert. Alle Säugetiere, Fische und Weichtiere produzieren jedoch von Natur aus körpereigene Cannabinoide, die den Phytocannabinoiden strukturell sehr ähnlich sind. Unsere körpereigenen <a href="https://sanaleo.com/cbd-wissen/ubersicht-cannabinoide-der-hanfplanze/" title="Die Cannabinoide der Hanfpflanze">Cannabinoide</a> sind Teil des <a href="https://sanaleo.com/blog/der-entourage-effekt/" title="Das Endocannabinoidsystem">Endocannabinoid-Systems</a>, welches an unserem Gesundheitserhalt, an gewissen Genesungsprozessen und folglich auch an unserer Gemütslage beteiligt ist. Die wissenschaftliche These ist: Exogen zugeführte Cannabinoide stimulieren das System, das einen Ausgleich der ausgeschütteten Botenstoffe anstrebt. Durch die Entdeckung dieses körpereigenen Systems hat sich das Verständnis der Wissenschaft von CBD und anderer Phytocannabinoide enorm erweitert und weiterführende Forschung angeregt. 
       </p>   
     </div>
     <button class="faq-accordion-archive"><h2 class="accordion_heading">WAS IST DER UNTERSCHIED ZWISCHEN THC UND CBD?</h2><i class="faq-archive-info-open"></i></button>
@@ -1505,7 +1412,7 @@ Die Analysezertifikate zu jeder Sorte können auf der entsprechenden Produktinfo
     </div>
     <button class="faq-accordion-archive"><h2 class="accordion_heading">CBD ALS PFLANZLICHE ALTERNATIVE?</h2><i class="faq-archive-info-open"></i></button>
     <div class="panel-archive">
-      <p>Die Wenigsten von uns sind im Alltag frei von Beschwerden. In Zeiten des Leistungsdrucks und des ständigen “Funktionieren-Müssens” neigen wir dazu, sie leichtfertig zu ignorieren. Schnelle Abhilfe versprechen massenhaft pharmazeutische Produkte, die nicht frei von Nebenwirkungen sind und immer weniger Vertrauen erfahren. Nicht ohne Grund boomen Naturprodukte so sehr wie noch nie. Natur statt Chemie lautet die Devise. Die wichtigste (Wieder-)Entdeckung der vergangenen Jahre: <a href="https://sanaleo.com/anwendungsfelder-und-vorteile-der-hanfpflanze/" title="Anwendungsgebiete Cannabis">Das Potential von Cannabis.</a></p> 
+      <p>Die Wenigsten von uns sind im Alltag frei von Beschwerden. In Zeiten des Leistungsdrucks und des ständigen “Funktionieren-Müssens” neigen wir dazu, sie leichtfertig zu ignorieren. Schnelle Abhilfe versprechen massenhaft pharmazeutische Produkte, die nicht frei von Nebenwirkungen sind und immer weniger Vertrauen erfahren. Nicht ohne Grund boomen Naturprodukte so sehr wie noch nie. Natur statt Chemie lautet die Devise. Die wichtigste (Wieder-)Entdeckung der vergangenen Jahre: <a href="https://sanaleo.com/blog/anwendungsfelder-und-vorteile-der-hanfpflanze/" title="Anwendungsgebiete Cannabis">Das Potential von Cannabis.</a></p> 
     </div>   
     <button class="faq-accordion-archive"><h2 class="accordion_heading">WAS MUSS ICH BEI DER KOMBINATION VON CBD MIT MEDIKAMENTEN BEACHTEN?</h2><i class="faq-archive-info-open"></i></button>
     <div class="panel-archive">
@@ -1517,7 +1424,7 @@ Die Analysezertifikate zu jeder Sorte können auf der entsprechenden Produktinfo
     <button class="faq-accordion-archive"><h2 class="accordion_heading">CBD UND SCHWANGERE</h2><i class="faq-archive-info-open"></i></button>
     <div class="panel-archive">
       <p>
-      Wir raten Schwangeren von der Anwendung von <a href="https://sanaleo.com/shop-sortiment/" title="CBD Produkte im Onlineshop kaufen">CBD-Produkten</a> ab.
+      Wir raten Schwangeren von der Anwendung von <a href="https://sanaleo.com/" title="CBD Produkte">CBD-Produkten</a> ab.
       </p>   
     </div>
     

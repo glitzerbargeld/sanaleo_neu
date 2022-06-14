@@ -176,11 +176,11 @@ get_header(); ?>
         <h1 style="text-align: center;">Aktuelle Analysezertifikate unserer CBD Produkte</h1>
 
         <p style="max-width: 1100px; margin: 20px auto; padding: 0 5%; text-align: justify; text-align-last: center;">
-            SANALEO bietet ausgewählte Premium <b><a href="https://sanaleo.com/cbd-blueten">CBD Blüten</a></b>
+            SANALEO bietet ausgewählte Premium <b><a href="https://sanaleo.com/cbd-blueten/">CBD Blüten</a></b>
             verschiedener Premium-Hersteller aus Mitteleuropa und
-            hochwertige <b><a href="https://sanaleo.com/cbd-oele">CBD-Öle</a></b> an. Wir garantieren <b><a
-                    href="https://sanaleo.com/cbd-blueten">CBD Aromablüten</a></b> und <b><a
-                    href="https://sanaleo.com/cbd-oele">CBD-Öle</a></b> hervorragender Qualität. Unsere Sorten
+            hochwertige <b><a href="https://sanaleo.com/cbd-oele/">CBD-Öle</a></b> an. Wir garantieren <b><a
+                    href="https://sanaleo.com/cbd-blueten/">CBD Aromablüten</a></b> und <b><a
+                    href="https://sanaleo.com/cbd-oele/">CBD-Öle</a></b> hervorragender Qualität. Unsere Sorten
             und Öle stammen, wie jedes andere unserer CBD Produkte, aus nachhaltiger und ökologischer Landwirtschaft.
             Damit sind sie garantiert frei von Herbiziden, Pestiziden oder chemischen Düngern.
             All unsere Produkte werden vor dem Verkauf von einem unabhängigen Labor auf ihre Inhaltsstoffe und die

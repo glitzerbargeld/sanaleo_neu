@@ -4,7 +4,7 @@ Theme Name: Sanaleo Premium Theme
 Author: Brainstorm Force
 Author URI: http://wpastra.com/about/
 Description: Sanaleo Child Theme for Astra WP
-Version: 1.0
+Version: 1.0.1
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: sanaleo
@@ -34,6 +34,11 @@ INDEX
   5.1 Grosshandel
 
 */
+
+a {
+  z-index: 2;
+}
+
 @-webkit-keyframes pulse { 0% { -webkit-transform: scale(0.95); transform: scale(0.95); }
   70% { -webkit-transform: scale(1); transform: scale(1); }
   100% { -webkit-transform: scale(0.95); transform: scale(0.95); } }
@@ -1344,23 +1349,6 @@ span.has-text-align-center.ticss-77901956 { font-weight: 700; font-family: 'Mr-E
 
 .ast-mobile-popup-inner { overflow: scroll; }
 
-/*
-.ast-site-header-cart .widget_shopping_cart .buttons .button,
-.ast-site-header-cart .widget_shopping_cart .buttons .button.wc-forward,
-.woocommerce .ast-site-header-cart .widget_shopping_cart .buttons .button,
-.woocommerce .ast-site-header-cart .widget_shopping_cart .buttons .button.wc-forward:hover {
-  color: white;
-}
-
-.ast-site-header-cart .widget_shopping_cart .buttons .button,
-.ast-site-header-cart .widget_shopping_cart .buttons .button.wc-forward,
-.woocommerce .ast-site-header-cart .widget_shopping_cart .buttons .button,
-.woocommerce .ast-site-header-cart .widget_shopping_cart .buttons .button.wc-forward {
-
-  color: black;
-}
-
-*/
 .ast-site-header-cart .widget_shopping_cart, .woocommerce .ast-site-header-cart .widget_shopping_cart { background-color: #fff; position: absolute; top: 64.2px; width: 280px; z-index: 999999; font-size: .875em; left: -999em; display: block; line-height: 1.618; box-shadow: 0; transition: all .3s ease; border: 1px solid black; opacity: 0; visibility: hidden; border-top: 0; }
 
 .no-more { display: none !important; }
@@ -1434,15 +1422,6 @@ div.desc { padding: 15px; text-align: center; }
 
 #partner-section { width: 100%; margin: auto; display: inline-flex; justify-content: space-around; height: auto; padding: 2%; margin-bottom: 3%; }
 
-/*
-.ast-advanced-headers-layout {
-	padding-top: 5%;
-	padding-bottom: 5%;
-	width: 100%;
-	height: 60vh;
-}
-
-*/
 .wpcf7 label { display: block; }
 
 .ast-woo-shop-archive .site-content > .ast-container { max-width: 1920px; }
